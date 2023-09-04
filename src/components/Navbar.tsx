@@ -35,7 +35,7 @@ export default function Navbar() {
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
                 <div className="relative ml-3">
-                  <UserButton />
+                  <UserButton afterSignOutUrl="/" />
                 </div>
               </div>
               <div className="-mr-2 flex items-center sm:hidden">
