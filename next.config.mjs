@@ -17,6 +17,14 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "personal-website-pics-2.s3.eu-central-1.amazonaws.com",
+      },
+    ],
+  },
 };
 
 export default config;
