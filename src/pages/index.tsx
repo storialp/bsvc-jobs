@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import JobsList from "~/components/JobList";
 import Navbar from "~/components/Navbar";
 
 import { api } from "~/utils/api";
@@ -15,6 +16,7 @@ export default function Home() {
         />
       </Head>
       <Navbar />
+      <JobsList />
     </>
   );
 }
