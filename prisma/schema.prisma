@@ -10,8 +10,16 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Example {
-    id        String   @id @default(cuid())
+model Job {
+    id String @id @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    title String @db.VarChar(75)
+    companyName String @db.VarChar(150)
+    city String @db.VarChar(30)
+    country String @db.VarChar(30)
+    function String @db.VarChar(75)
+    schedule String @db.VarChar(40)
+    imageUrl String @db.VarChar(200)
+    link String @db.VarChar(200)
 }
