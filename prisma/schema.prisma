@@ -44,7 +44,7 @@ model Qualification {
 }
 
 model SavedJob {
-  id String @id @default(cuid())
+  @@id([userId, jobId])
   job Job @relation(fields: [jobId], references: [id])
   jobId String
   userId String @db.VarChar(200)

@@ -1,15 +1,12 @@
-import { useUser } from "@clerk/nextjs";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
 import { api } from "~/utils/api";
 
 export default function JobsList() {
-  const user = useUser();
+  const ctx = api.useContext();
   const { data: jobData } = api.job.getAllWithSaved.useQuery();
-  const [selectedJob, setSelectedJob] = useState("");
   const { mutate } = api.job.saveJob.useMutation({
     onSuccess: () => {
-      setSelectedJob("");
+      void ctx.job.getAllWithSaved.invalidate();
     },
     onError: (e) => {
       console.error(e);
@@ -42,9 +39,7 @@ export default function JobsList() {
             <div className="relative ml-auto">
               <button
                 onClick={() => {
-                  setSelectedJob(job.id);
-                  console.log(selectedJob);
-                  mutate({ jobId: selectedJob });
+                  mutate({ jobId: job.id });
                 }}
               >
                 {job.savedJob[0]?.userId ? (
