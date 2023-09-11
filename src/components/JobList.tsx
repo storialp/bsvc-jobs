@@ -42,7 +42,7 @@ export default function JobsList() {
                   mutate({ jobId: job.id });
                 }}
               >
-                {job.savedJob[0]?.userId ? (
+                {"savedJob" in job ? (
                   <BookmarkIcon
                     className="h-5 w-5 text-gray-700 hover:text-gray-500"
                     aria-hidden="true"
