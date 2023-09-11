@@ -8,15 +8,14 @@ export default function JobsList() {
   const {data: jobData } = api.job.getAllWithSaved.useQuery();
   const [selectedJob, setSelectedJob] = useState("");
   if (!jobData) return null;
-  // const handleSave = async () = 
-  // const { mutate, isLoading: isSaving} = api.job.saveJob.useMutation({
-  //   onSuccess: () => {
-  //     setSelectedJob("");
-  //   },
-  //   onError: (e) => {
-  //     console.error(e)
-  //   }
-  // })
+  const { mutate } = api.job.saveJob.useMutation({
+    onSuccess: () => {
+      setSelectedJob("");
+    },
+    onError: (e) => {
+      console.error(e)
+    }
+  })
   return (
     <ul
       role="list"
@@ -45,13 +44,22 @@ export default function JobsList() {
                 onClick={() => {
                   setSelectedJob(job.id);
                   console.log(selectedJob);
-                  // mutate({ jobId: selectedJob });
+                  mutate({ jobId: selectedJob });
                 }}
               >
-                <BookmarkIcon
-                  className="h-5 w-5 text-gray-400 hover:text-gray-500"
-                  aria-hidden="true"
-                />
+                {job.savedJob[0]?.userId ? (
+                  <BookmarkIcon
+                    className="h-5 w-5 text-gray-700 hover:text-gray-500"
+                    aria-hidden="true"
+                  />
+                  
+                  
+                ) : (
+                  <BookmarkIcon
+                    className="h-5 w-5 text-gray-400 hover:text-gray-500"
+                    aria-hidden="true"
+                  />
+                )}
               </button>
             </div>
           </div>
