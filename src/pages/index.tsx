@@ -1,11 +1,8 @@
-import { useUser } from "@clerk/nextjs";
 import Head from "next/head";
 import JobsList from "~/components/JobList";
 import Navbar from "~/components/Navbar";
 
 export default function Home() {
-  const user = useUser();
-  console.log(user);
   return (
     <>
       <Head>
