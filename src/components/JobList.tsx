@@ -1,39 +1,14 @@
+import { useUser } from "@clerk/nextjs";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import { api } from "~/utils/api";
 
-const jobs = [
-  {
-    id: 1,
-    companyName: "Earlybird",
-    title: "Analyst Intern Digital West",
-    function: "Internship",
-    imageUrl:
-      "https://images.crunchbase.com/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/emh0mv7ca0jllswzl9rm",
-    country: "Germany",
-    city: "Berlin",
-    schedule: "Full-time",
-    description: [
-      "Working on deals with the Earlybird Investment team and taking responsibility for sourcing, initial deal assessments, preparing investment decisions and subsequent due diligences",
-      "Developing your own industry expertise through deep dives, while providing the Investment team with extensive insights",
-      "Actively expanding your network in the European venture capital ecosystem including startups, founders, investors, entrepreneurs and of course the companies that shape the world of tomorrow!",
-      "Supporting the Earlybird Investment team in all aspects of creating value for our portfolio companies and investors",
-    ],
-    qualifications: [
-      "Academic studies (completed Bachelor's degree & possibly a Master's degree or more!) with very strong grades in any direction",
-      "Analytical rigor, business acumen, project management, relationship-building, and emotional intelligence skills",
-      "Passion and interest for the European startup ecosystem and a growing understanding of the Venture Capital industry",
-      "Curiosity, team-player, open-mindedness, global mindset, and networking skills",
-      "The ability to work with us full-time for 3 months in one of our Earlybird offices",
-    ],
-    link: "https://earlybirdvc-gmbh.jobs.personio.de/job/499894?language=en&display=en",
-  },
-];
-
 export default function JobsList() {
-  const { data: jobData } = api.job.getAll.useQuery();
+  const user = useUser()
+  const {data: jobData } = api.job.getAllWithSaved.useQuery();
   const [selectedJob, setSelectedJob] = useState("");
   if (!jobData) return null;
+  // const handleSave = async () = 
   // const { mutate, isLoading: isSaving} = api.job.saveJob.useMutation({
   //   onSuccess: () => {
   //     setSelectedJob("");

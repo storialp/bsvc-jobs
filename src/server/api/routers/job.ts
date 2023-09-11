@@ -23,6 +23,18 @@ export const jobRouter = createTRPCRouter({
     });
   }),
 
+  getAllWithSaved: privateProcedure.query(({ctx}) => {
+    return ctx.prisma.job.findMany({
+      include: {
+        savedJob: {
+        where: {
+          userId: ctx.userId
+        }
+        }
+      }
+    });
+  }),
+
   saveJob: privateProcedure
     .input(
       z.object({
