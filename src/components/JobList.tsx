@@ -4,18 +4,18 @@ import { useState } from "react";
 import { api } from "~/utils/api";
 
 export default function JobsList() {
-  const user = useUser()
-  const {data: jobData } = api.job.getAllWithSaved.useQuery();
+  const user = useUser();
+  const { data: jobData } = api.job.getAllWithSaved.useQuery();
   const [selectedJob, setSelectedJob] = useState("");
-  if (!jobData) return null;
   const { mutate } = api.job.saveJob.useMutation({
     onSuccess: () => {
       setSelectedJob("");
     },
     onError: (e) => {
-      console.error(e)
-    }
-  })
+      console.error(e);
+    },
+  });
+  if (!jobData) return null;
   return (
     <ul
       role="list"
@@ -52,8 +52,6 @@ export default function JobsList() {
                     className="h-5 w-5 text-gray-700 hover:text-gray-500"
                     aria-hidden="true"
                   />
-                  
-                  
                 ) : (
                   <BookmarkIcon
                     className="h-5 w-5 text-gray-400 hover:text-gray-500"
