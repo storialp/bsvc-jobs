@@ -1,7 +1,6 @@
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import { api } from "~/utils/api";
-import { useUser } from "@clerk/nextjs";
 
 const jobs = [
   {
@@ -32,8 +31,6 @@ const jobs = [
 ];
 
 export default function JobsList() {
-  const ctx = api.useContext()
-  const user = useUser();
   const { data: jobData } = api.job.getAll.useQuery();
   const [selectedJob, setSelectedJob] = useState("");
   if (!jobData) return null;
