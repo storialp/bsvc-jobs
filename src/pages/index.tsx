@@ -3,12 +3,9 @@ import Head from "next/head";
 import JobsList from "~/components/JobList";
 import Navbar from "~/components/Navbar";
 
-import { api } from "~/utils/api";
-
 export default function Home() {
   const user = useUser();
-
-  const { data } = api.job.getAll.useQuery();
+  console.log(user);
   return (
     <>
       <Head>

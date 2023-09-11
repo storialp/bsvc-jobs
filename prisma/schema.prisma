@@ -22,4 +22,32 @@ model Job {
     schedule String @db.VarChar(40)
     imageUrl String @db.VarChar(200)
     link String @db.VarChar(200)
+    description Description[]
+    qualification Qualification[]
+    savedJob SavedJob[]
+}
+
+model Description {
+    id String @id @default(cuid())
+    content String @db.VarChar(250)
+    job Job @relation(fields: [jobId], references: [id])
+    jobId String
+    @@index([jobId])
+}
+
+model Qualification {
+    id String @id @default(cuid())
+    content String @db.VarChar(250)
+    job Job @relation(fields: [jobId], references: [id])
+    jobId String
+    @@index([jobId])
+}
+
+model SavedJob {
+  id String @id @default(cuid())
+  job Job @relation(fields: [jobId], references: [id])
+  jobId String
+  userId String @db.VarChar(200)
+  @@index([jobId])
+  @@index([userId])
 }
