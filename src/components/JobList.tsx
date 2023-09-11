@@ -66,13 +66,7 @@ export default function JobsList() {
               <p className=" text-sm text-gray-600">{job.function}</p>
             </div>
             <div className="relative ml-auto">
-              <button
-                onClick={() => {
-                  setSelectedJob(job.id);
-                  console.log(selectedJob);
-                  mutate({jobId: selectedJob})
-                }}
-              >
+              <button>
                 <BookmarkIcon
                   className="h-5 w-5 text-gray-400 hover:text-gray-500"
                   aria-hidden="true"
