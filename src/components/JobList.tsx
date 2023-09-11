@@ -34,14 +34,14 @@ export default function JobsList() {
   const { data: jobData } = api.job.getAll.useQuery();
   const [selectedJob, setSelectedJob] = useState("");
   if (!jobData) return null;
-  const { mutate, isLoading: isSaving} = api.job.saveJob.useMutation({
-    onSuccess: () => {
-      setSelectedJob("");
-    },
-    onError: (e) => {
-      console.error(e)
-    }
-  })
+  // const { mutate, isLoading: isSaving} = api.job.saveJob.useMutation({
+  //   onSuccess: () => {
+  //     setSelectedJob("");
+  //   },
+  //   onError: (e) => {
+  //     console.error(e)
+  //   }
+  // })
   return (
     <ul
       role="list"
@@ -66,7 +66,13 @@ export default function JobsList() {
               <p className=" text-sm text-gray-600">{job.function}</p>
             </div>
             <div className="relative ml-auto">
-              <button>
+              <button
+                onClick={() => {
+                  setSelectedJob(job.id);
+                  console.log(selectedJob);
+                  // mutate({ jobId: selectedJob });
+                }}
+              >
                 <BookmarkIcon
                   className="h-5 w-5 text-gray-400 hover:text-gray-500"
                   aria-hidden="true"
