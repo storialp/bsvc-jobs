@@ -3,10 +3,11 @@ import { api } from "~/utils/api";
 
 export default function JobsList() {
   const ctx = api.useContext();
-  const { data: jobData } = api.job.getAllWithSaved.useQuery();
+  const { data: jobData } = api.job.getAll.useQuery();
+  // const { data: jobDataWithoutSaved } = api.job.getAll.useQuery(opts?: {enabled: false});
   const { mutate } = api.job.saveJob.useMutation({
     onSuccess: () => {
-      void ctx.job.getAllWithSaved.invalidate();
+      void ctx.job.getAll.invalidate();
     },
     onError: (e) => {
       console.error(e);
@@ -42,7 +43,7 @@ export default function JobsList() {
                   mutate({ jobId: job.id });
                 }}
               >
-                {"savedJob" in job ? (
+                {savedJob[0] ? (
                   <BookmarkIcon
                     className="h-5 w-5 text-gray-700 hover:text-gray-500"
                     aria-hidden="true"
