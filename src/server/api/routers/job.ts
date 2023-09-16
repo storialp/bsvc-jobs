@@ -21,7 +21,7 @@ export const jobRouter = createTRPCRouter({
     });
   }),
 
-  saveJob: privateProcedure
+  toggleSavedJob: privateProcedure
     .input(
       z.object({
         jobId: z.string().min(8).max(100),
@@ -29,12 +29,22 @@ export const jobRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const saved = await ctx.prisma.savedJob.create({
-        data: {
-          userId,
-          jobId: input.jobId,
-        },
+      const data = { userId: userId, jobId: input.jobId };
+
+      const existingSave = await ctx.prisma.savedJob.findUnique({
+        where: { userId_jobId: data },
       });
-      return saved;
+
+      if (existingSave == null) {
+        await ctx.prisma.savedJob.create({ data });
+        return { saved: true };
+      } else {
+        await ctx.prisma.savedJob.delete({
+          where: {
+            userId_jobId: data,
+          },
+        });
+        return { saved: false };
+      }
     }),
 });

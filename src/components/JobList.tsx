@@ -1,13 +1,12 @@
 import { useUser } from "@clerk/nextjs";
-import { BookmarkIcon } from "@heroicons/react/20/solid";
+import { BookmarkIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import { api } from "~/utils/api";
 
 export default function JobsList() {
   const ctx = api.useContext();
   const { isSignedIn } = useUser();
   const { data: jobData } = api.job.getAll.useQuery();
-  // const { data: jobDataWithoutSaved } = api.job.getAll.useQuery(opts?: {enabled: false});
-  const { mutate } = api.job.saveJob.useMutation({
+  const { mutate } = api.job.toggleSavedJob.useMutation({
     onSuccess: () => {
       void ctx.job.getAll.invalidate();
     },
@@ -90,8 +89,11 @@ export default function JobsList() {
               </dd>
             </div> */}
             <div className="flex justify-between gap-x-4 py-3">
-              <dt className="text-gray-600 hover:text-gray-500">
-                <a href={job.link}>View in website</a>
+              <dt className="flex items-center text-gray-600 underline hover:text-gray-500">
+                <a href={job.link}>View in their website</a>
+                <a href={job.link} className="content-center text-center">
+                  <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
+                </a>
               </dt>
             </div>
           </dl>
