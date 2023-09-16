@@ -1,8 +1,10 @@
+import { useUser } from "@clerk/nextjs";
 import { BookmarkIcon } from "@heroicons/react/20/solid";
 import { api } from "~/utils/api";
 
 export default function JobsList() {
   const ctx = api.useContext();
+  const { isSignedIn } = useUser();
   const { data: jobData } = api.job.getAll.useQuery();
   // const { data: jobDataWithoutSaved } = api.job.getAll.useQuery(opts?: {enabled: false});
   const { mutate } = api.job.saveJob.useMutation({
@@ -38,23 +40,32 @@ export default function JobsList() {
               <p className=" text-sm text-gray-600">{job.function}</p>
             </div>
             <div className="relative ml-auto">
-              <button
-                onClick={() => {
-                  mutate({ jobId: job.id });
-                }}
-              >
-                {savedJob[0] ? (
-                  <BookmarkIcon
-                    className="h-5 w-5 text-gray-700 hover:text-gray-500"
-                    aria-hidden="true"
-                  />
-                ) : (
+              {isSignedIn ? (
+                <button
+                  onClick={() => {
+                    mutate({ jobId: job.id });
+                  }}
+                >
+                  {job?.savedJob[0] ? (
+                    <BookmarkIcon
+                      className="h-5 w-5 text-gray-700 hover:text-gray-500"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <BookmarkIcon
+                      className="h-5 w-5 text-gray-400 hover:text-gray-500"
+                      aria-hidden="true"
+                    />
+                  )}
+                </button>
+              ) : (
+                <button>
                   <BookmarkIcon
                     className="h-5 w-5 text-gray-400 hover:text-gray-500"
                     aria-hidden="true"
                   />
-                )}
-              </button>
+                </button>
+              )}
             </div>
           </div>
           <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">

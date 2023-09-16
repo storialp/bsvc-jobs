@@ -1,7 +1,7 @@
 import { authMiddleware } from "@clerk/nextjs";
 
 export default authMiddleware({
-  publicRoutes: ["/", "/api/trpc/job.getAllWithSave"],
+  publicRoutes: ["/", "/api/trpc/job.getAll"],
 });
 
 export const config = {

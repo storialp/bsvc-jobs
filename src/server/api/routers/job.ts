@@ -7,14 +7,16 @@ import {
 } from "~/server/api/trpc";
 
 export const jobRouter = createTRPCRouter({
-  getAll: privateProcedure.query(({ ctx }) => {
+  getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.job.findMany({
       include: {
-        savedJob: !ctx?.userId ? undefined : {
-          where: {
-            userId: ctx.userId,
-          },
-        },
+        savedJob: !ctx?.userId
+          ? undefined
+          : {
+              where: {
+                userId: ctx.userId,
+              },
+            },
       },
     });
   }),
