@@ -4,7 +4,11 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import BsvcLogo from "./BsvcLogo";
 
-export default function Navbar() {
+interface NavBarProps {
+  path: string;
+}
+
+export default function Navbar({ path }: NavBarProps) {
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -19,18 +23,26 @@ export default function Navbar() {
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                  <a
-                    href="#"
-                    className="text-md inline-flex items-center border-b-2 border-yellow-500 px-1 pt-1 font-medium text-gray-900"
+                  <Link
+                    href="/"
+                    className={
+                      path === "/"
+                        ? "text-md inline-flex items-center border-b-2 border-yellow-500 px-1 pt-1 font-medium text-gray-900"
+                        : "text-md inline-flex items-center border-b-2 border-transparent px-1 pt-1 font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    }
                   >
                     VC jobs
-                  </a>
-                  <a
-                    href="#"
-                    className="text-md inline-flex items-center border-b-2 border-transparent px-1 pt-1 font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                  </Link>
+                  <Link
+                    href="/saved"
+                    className={
+                      path === "/saved"
+                        ? "text-md inline-flex items-center border-b-2 border-yellow-500 px-1 pt-1 font-medium text-gray-900"
+                        : "text-md inline-flex items-center border-b-2 border-transparent px-1 pt-1 font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    }
                   >
                     Saved jobs
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">

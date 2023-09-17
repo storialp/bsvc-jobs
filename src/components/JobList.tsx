@@ -2,7 +2,7 @@ import { useUser } from "@clerk/nextjs";
 import { BookmarkIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import { api } from "~/utils/api";
 
-export default function JobsList() {
+export default function JobList() {
   const ctx = api.useContext();
   const { isSignedIn } = useUser();
   const { data: jobData } = api.job.getAll.useQuery();

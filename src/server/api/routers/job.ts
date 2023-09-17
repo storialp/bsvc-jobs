@@ -47,4 +47,16 @@ export const jobRouter = createTRPCRouter({
         return { saved: false };
       }
     }),
+
+  getSaved: privateProcedure.query(({ ctx }) => {
+    const userId = ctx.userId;
+    return ctx.prisma.savedJob.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        job: true,
+      },
+    });
+  }),
 });
