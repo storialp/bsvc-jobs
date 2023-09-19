@@ -1,5 +1,5 @@
 import Head from "next/head";
-import JobDetails from "~/components/JobDetails";
+import JobCard from "~/components/JobCard";
 import Navbar from "~/components/Navbar";
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
         />
       </Head>
       <Navbar path="/job" />
-      <JobDetails />
+      <JobCard />
     </>
   );
 }
