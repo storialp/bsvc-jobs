@@ -1,6 +1,7 @@
 import { useUser } from "@clerk/nextjs";
 import { BookmarkIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import { api } from "~/utils/api";
+import Link from "next/link";
 
 export default function JobList() {
   const ctx = api.useContext();
@@ -25,48 +26,50 @@ export default function JobList() {
           key={job.id}
           className="overflow-hidden rounded-xl border border-gray-200"
         >
-          <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
-            <div className="flex-col text-sm font-medium leading-6 text-gray-900">
-              <img
-                src={job.imageUrl}
-                alt={`${job.companyName} logo`}
-                className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
-              />
-              {job.companyName}
-            </div>
-            <div className="text-md mx-auto font-medium leading-6 text-gray-900">
-              {job.title}
-              <p className=" text-sm text-gray-600">{job.function}</p>
-            </div>
-            <div className="relative ml-auto">
-              {isSignedIn ? (
-                <button
-                  onClick={() => {
-                    mutate({ jobId: job.id });
-                  }}
-                >
-                  {job?.savedJob[0] ? (
-                    <BookmarkIcon
-                      className="h-5 w-5 text-gray-700 hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                  ) : (
+          <Link href={`/job/${job.id}`}>
+            <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+              <div className="flex-col text-sm font-medium leading-6 text-gray-900">
+                <img
+                  src={job.imageUrl}
+                  alt={`${job.companyName} logo`}
+                  className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
+                />
+                {job.companyName}
+              </div>
+              <div className="text-md mx-auto font-medium leading-6 text-gray-900">
+                {job.title}
+                <p className=" text-sm text-gray-600">{job.function}</p>
+              </div>
+              <div className="relative ml-auto">
+                {isSignedIn ? (
+                  <button
+                    onClick={() => {
+                      mutate({ jobId: job.id });
+                    }}
+                  >
+                    {job?.savedJob[0] ? (
+                      <BookmarkIcon
+                        className="h-5 w-5 text-gray-700 hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <BookmarkIcon
+                        className="h-5 w-5 text-gray-400 hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </button>
+                ) : (
+                  <button>
                     <BookmarkIcon
                       className="h-5 w-5 text-gray-400 hover:text-gray-500"
                       aria-hidden="true"
                     />
-                  )}
-                </button>
-              ) : (
-                <button>
-                  <BookmarkIcon
-                    className="h-5 w-5 text-gray-400 hover:text-gray-500"
-                    aria-hidden="true"
-                  />
-                </button>
-              )}
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
+          </Link>
           <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="text-gray-600">Location</dt>
