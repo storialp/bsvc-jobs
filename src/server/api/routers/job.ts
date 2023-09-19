@@ -59,4 +59,26 @@ export const jobRouter = createTRPCRouter({
       },
     });
   }),
+
+  getJobDetails: publicProcedure
+    .input(
+      z.object({
+        jobId: z.string().min(8).max(100),
+      }),
+    )
+    .query(({ ctx, input }) => {
+      const userId = ctx.userId;
+      return ctx.prisma.job.findUnique({
+        where: {
+          id: input.jobId,
+        },
+        include: {
+          savedJob: {
+            where: {
+              userId: userId ? userId : undefined,
+            },
+          },
+        },
+      });
+    }),
 });
