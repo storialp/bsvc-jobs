@@ -78,6 +78,8 @@ export const jobRouter = createTRPCRouter({
               userId: userId ? userId : undefined,
             },
           },
+          qualification: true,
+          description: true,
         },
       });
     }),
