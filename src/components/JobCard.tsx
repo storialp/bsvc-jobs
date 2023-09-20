@@ -2,9 +2,13 @@ import { api } from "~/utils/api";
 import { BookmarkIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import { useUser } from "@clerk/nextjs";
 
-export default function JobCard() {
+interface JobCardProps {
+  jobId: string;
+}
+
+export default function JobCard({ jobId }: JobCardProps) {
   const { data: job } = api.job.getJobDetails.useQuery({
-    jobId: "clmdm5r5x0000cl84nzb1iv2w",
+    jobId: jobId,
   });
   const ctx = api.useContext();
   const { isSignedIn } = useUser();
