@@ -25,6 +25,7 @@ model Job {
     description Description[]
     qualification Qualification[]
     savedJob SavedJob[]
+    introduction Introduction[]
 }
 
 model Description {
@@ -50,4 +51,15 @@ model SavedJob {
   userId String @db.VarChar(200)
   @@index([jobId])
   @@index([userId])
+}
+
+model Introduction {
+  @@id([userId, jobId])
+  job Job @relation(fields: [jobId], references: [id])
+  jobId String
+  userId String @db.VarChar(200)
+  active Boolean @default(true)
+  @@index([jobId])
+  @@index([userId])
+
 }

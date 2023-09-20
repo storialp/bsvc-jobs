@@ -20,6 +20,14 @@ export default function JobCard({ jobId }: JobCardProps) {
       console.error(e);
     },
   });
+  const { mutate: mutation } = api.introduction.createIntro.useMutation({
+    onSuccess: () => {
+      void ctx.job.getJobDetails.invalidate();
+    },
+    onError: (e) => {
+      console.error(e);
+    },
+  });
   if (!job) return null;
   return (
     <div className="mx-auto mt-5 w-1/2 rounded-xl border border-gray-200 shadow-sm ">
@@ -106,7 +114,10 @@ export default function JobCard({ jobId }: JobCardProps) {
         </div>
       </dl>
       <div className="py-3 text-center">
-        <button className="text-md rounded-full bg-yellow-400 px-2 py-2 font-semibold text-gray-700">
+        <button
+          className="text-md rounded-full bg-yellow-400 px-2 py-2 font-semibold text-gray-700"
+          onClick={() => mutation({ jobId: job.id })}
+        >
           Request intro
         </button>
       </div>
