@@ -6,9 +6,10 @@ import BsvcLogo from "./BsvcLogo";
 
 interface NavBarProps {
   path: string;
+  isSignedIn: boolean | undefined;
 }
 
-export default function Navbar({ path }: NavBarProps) {
+export default function Navbar({ path, isSignedIn }: NavBarProps) {
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -48,6 +49,14 @@ export default function Navbar({ path }: NavBarProps) {
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
                 <div className="relative ml-3">
                   <UserButton afterSignOutUrl="/" />
+                  {!isSignedIn && (
+                    <Link
+                      href="/sign-in"
+                      className="text-md rounded-full bg-yellow-400 px-3 py-2 font-semibold text-gray-800"
+                    >
+                      Sign In
+                    </Link>
+                  )}
                 </div>
               </div>
               <div className="-mr-2 flex items-center sm:hidden">

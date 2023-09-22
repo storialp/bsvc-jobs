@@ -1,3 +1,4 @@
+import { useUser } from "@clerk/nextjs";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import JobCard from "~/components/JobCard";
@@ -5,6 +6,7 @@ import Navbar from "~/components/Navbar";
 
 export default function Home() {
   const router = useRouter();
+  const { isSignedIn } = useUser();
   const jobId = router.query.jobId;
   if (jobId instanceof Array || !jobId) return null;
   return (
@@ -16,7 +18,7 @@ export default function Home() {
           content="The Bocconi Students for Venture Capital job board"
         />
       </Head>
-      <Navbar path="/job" />
+      <Navbar path="/job" isSignedIn={isSignedIn} />
       <JobCard jobId={jobId} />
     </>
   );
