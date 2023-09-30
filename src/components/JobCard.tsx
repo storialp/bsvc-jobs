@@ -30,7 +30,7 @@ export default function JobCard({ jobId }: JobCardProps) {
   });
   if (!job) return null;
   return (
-    <div className="mx-auto mt-5 w-1/2 rounded-xl border border-gray-200 shadow-sm ">
+    <div className="mx-auto mt-5 w-5/6 overflow-hidden rounded-xl border border-gray-200 shadow-sm md:w-3/4 lg:w-1/2">
       <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
         <div className="flex-col text-sm font-medium leading-6 text-gray-900">
           <img
