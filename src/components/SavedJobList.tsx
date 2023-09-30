@@ -1,4 +1,3 @@
-import { useUser } from "@clerk/nextjs";
 import { BookmarkIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
 import { api } from "~/utils/api";
 
@@ -6,7 +5,6 @@ import { api } from "~/utils/api";
 
 export default function SavedJobList() {
   const ctx = api.useContext();
-  const { isSignedIn } = useUser();
   const { data: jobData } = api.job.getSaved.useQuery();
   const { mutate } = api.job.toggleSavedJob.useMutation({
     onSuccess: () => {
