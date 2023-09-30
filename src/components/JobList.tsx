@@ -7,17 +7,7 @@ import SaveJob from "./SaveJob";
 type AllJobOutput = RouterOutputs["job"]["getAll"];
 
 export default function JobList(props: { jobData: AllJobOutput }) {
-  const ctx = api.useContext();
   const { jobData } = props;
-  const { isSignedIn } = useUser();
-  const { mutate } = api.job.toggleSavedJob.useMutation({
-    onSuccess: () => {
-      void ctx.job.getAll.invalidate();
-    },
-    onError: (e) => {
-      console.error(e);
-    },
-  });
   if (!jobData) return null;
   return (
     <ul
