@@ -23,7 +23,8 @@ export default function SaveJob({ jobId }: SaveJobProps) {
     <>
       {isSignedIn ? (
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             mutate({ jobId: jobId });
           }}
         >
@@ -40,7 +41,7 @@ export default function SaveJob({ jobId }: SaveJobProps) {
           )}
         </button>
       ) : (
-        <button>
+        <button onClick={(e) => e.preventDefault()}>
           <BookmarkIcon
             className="h-5 w-5 text-gray-400 hover:text-gray-500"
             aria-hidden="true"
