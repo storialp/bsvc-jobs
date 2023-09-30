@@ -1,12 +1,15 @@
 import { useUser } from "@clerk/nextjs";
 import { BookmarkIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
-import { api } from "~/utils/api";
+import { RouterOutputs, api } from "~/utils/api";
 import Link from "next/link";
+import SaveJob from "./SaveJob";
 
-export default function JobList() {
+type AllJobOutput = RouterOutputs["job"]["getAll"];
+
+export default function JobList(props: { jobData: AllJobOutput }) {
   const ctx = api.useContext();
+  const { jobData } = props;
   const { isSignedIn } = useUser();
-  const { data: jobData } = api.job.getAll.useQuery();
   const { mutate } = api.job.toggleSavedJob.useMutation({
     onSuccess: () => {
       void ctx.job.getAll.invalidate();
@@ -41,32 +44,7 @@ export default function JobList() {
                 <p className=" text-sm text-gray-600">{job.function}</p>
               </div>
               <div className="relative ml-auto">
-                {isSignedIn ? (
-                  <button
-                    onClick={() => {
-                      mutate({ jobId: job.id });
-                    }}
-                  >
-                    {job?.savedJob[0] ? (
-                      <BookmarkIcon
-                        className="h-5 w-5 text-gray-700 hover:text-gray-500"
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <BookmarkIcon
-                        className="h-5 w-5 text-gray-400 hover:text-gray-500"
-                        aria-hidden="true"
-                      />
-                    )}
-                  </button>
-                ) : (
-                  <button>
-                    <BookmarkIcon
-                      className="h-5 w-5 text-gray-400 hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                  </button>
-                )}
+                <SaveJob jobId={job.id} />
               </div>
             </div>
           </Link>

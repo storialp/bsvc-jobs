@@ -8,17 +8,7 @@ import {
 
 export const jobRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.job.findMany({
-      include: {
-        savedJob: !ctx?.userId
-          ? undefined
-          : {
-              where: {
-                userId: ctx.userId,
-              },
-            },
-      },
-    });
+    return ctx.prisma.job.findMany({});
   }),
 
   toggleSavedJob: privateProcedure
@@ -57,6 +47,14 @@ export const jobRouter = createTRPCRouter({
       include: {
         job: true,
       },
+    });
+  }),
+
+  getSavedIds: privateProcedure.query(({ ctx }) => {
+    const userId = ctx.userId;
+    return ctx.prisma.savedJob.findMany({
+      select: { jobId: true },
+      where: { userId: userId },
     });
   }),
 

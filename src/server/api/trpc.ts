@@ -6,17 +6,14 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import {
-  getAuth,
-  SignedInAuthObject,
-  SignedOutAuthObject,
-} from "@clerk/nextjs/server";
+import { getAuth } from "@clerk/nextjs/server";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";
-
+import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { prisma } from "~/server/db";
+import type { AppRouter } from "./root";
 
 /**
  * 1. CONTEXT
@@ -134,3 +131,5 @@ const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
 });
 
 export const privateProcedure = t.procedure.use(enforceUserIsAuthed);
+export type RouterInputs = inferRouterInputs<AppRouter>;
+export type RouterOutputs = inferRouterOutputs<AppRouter>;
