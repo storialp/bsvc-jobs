@@ -11,7 +11,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { prisma } from "~/server/db";
 import type { AppRouter } from "./root";
 
@@ -131,5 +131,3 @@ const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
 });
 
 export const privateProcedure = t.procedure.use(enforceUserIsAuthed);
-export type RouterInputs = inferRouterInputs<AppRouter>;
-export type RouterOutputs = inferRouterOutputs<AppRouter>;

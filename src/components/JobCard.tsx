@@ -1,25 +1,16 @@
-import { api } from "~/utils/api";
-import { BookmarkIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
-import { useUser } from "@clerk/nextjs";
+import { RouterOutputs, api } from "~/utils/api";
+import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
+import SaveJobDetails from "./SaveJobDetail";
+
+type JobDetailOutput = RouterOutputs["job"]["getJobDetails"];
 
 interface JobCardProps {
   jobId: string;
+  job: JobDetailOutput;
 }
 
-export default function JobCard({ jobId }: JobCardProps) {
-  const { data: job } = api.job.getJobDetails.useQuery({
-    jobId: jobId,
-  });
+export default function JobCard({ jobId, job }: JobCardProps) {
   const ctx = api.useContext();
-  const { isSignedIn } = useUser();
-  const { mutate } = api.job.toggleSavedJob.useMutation({
-    onSuccess: () => {
-      void ctx.job.getJobDetails.invalidate();
-    },
-    onError: (e) => {
-      console.error(e);
-    },
-  });
   const { mutate: mutation } = api.introduction.createIntro.useMutation({
     onSuccess: () => {
       void ctx.job.getJobDetails.invalidate();
@@ -45,32 +36,7 @@ export default function JobCard({ jobId }: JobCardProps) {
           <p className=" text-sm text-gray-600">{job.function}</p>
         </div>
         <div className="relative ml-auto">
-          {isSignedIn ? (
-            <button
-              onClick={() => {
-                mutate({ jobId: job.id });
-              }}
-            >
-              {job?.savedJob[0] ? (
-                <BookmarkIcon
-                  className="h-5 w-5 text-gray-700 hover:text-gray-500"
-                  aria-hidden="true"
-                />
-              ) : (
-                <BookmarkIcon
-                  className="h-5 w-5 text-gray-400 hover:text-gray-500"
-                  aria-hidden="true"
-                />
-              )}
-            </button>
-          ) : (
-            <button>
-              <BookmarkIcon
-                className="h-5 w-5 text-gray-400 hover:text-gray-500"
-                aria-hidden="true"
-              />
-            </button>
-          )}
+          <SaveJobDetails jobId={jobId} />
         </div>
       </div>
       <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
@@ -84,26 +50,30 @@ export default function JobCard({ jobId }: JobCardProps) {
             <div className="font-medium text-gray-900">{job.schedule}</div>
           </dd>
         </div>
-        <div className="justify-between gap-x-4 py-3">
-          <dt className=" text-gray-600">Job Description</dt>
-          <dd className=" items-start gap-x-2">
-            <ul className="list-inside list-disc font-[450] text-gray-700">
-              {job.description.map((description) => (
-                <li key={description.id}>{description.content}</li>
-              ))}
-            </ul>
-          </dd>
-        </div>
-        <div className="justify-between gap-x-4 py-3">
-          <dt className=" text-gray-600">Job Qualifications</dt>
-          <dd className=" items-start gap-x-2">
-            <ul className="list-inside list-disc font-[450] text-gray-700">
-              {job.qualification.map((qualification) => (
-                <li key={qualification.id}>{qualification.content}</li>
-              ))}
-            </ul>
-          </dd>
-        </div>
+        {job.description[0] && (
+          <div className="justify-between gap-x-4 py-3">
+            <dt className=" text-gray-600">Job Description</dt>
+            <dd className=" items-start gap-x-2">
+              <ul className="list-inside list-disc font-[450] text-gray-700">
+                {job.description.map((description) => (
+                  <li key={description.id}>{description.content}</li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        )}
+        {job.qualification[0] && (
+          <div className="justify-between gap-x-4 py-3">
+            <dt className=" text-gray-600">Job Qualifications</dt>
+            <dd className=" items-start gap-x-2">
+              <ul className="list-inside list-disc font-[450] text-gray-700">
+                {job.qualification.map((qualification) => (
+                  <li key={qualification.id}>{qualification.content}</li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        )}
         <div className="flex justify-between gap-x-4 py-3">
           <dt className="flex items-center text-gray-600 underline hover:text-gray-500">
             <a href={job.link}>View in their website</a>

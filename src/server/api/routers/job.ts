@@ -65,17 +65,11 @@ export const jobRouter = createTRPCRouter({
       }),
     )
     .query(({ ctx, input }) => {
-      const userId = ctx.userId;
       return ctx.prisma.job.findUnique({
         where: {
           id: input.jobId,
         },
         include: {
-          savedJob: {
-            where: {
-              userId: userId ? userId : undefined,
-            },
-          },
           qualification: true,
           description: true,
         },
