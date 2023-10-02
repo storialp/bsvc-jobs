@@ -99,6 +99,22 @@ export default function Navbar({ path, isSignedIn }: NavBarProps) {
               >
                 Saved Jobs
               </Disclosure.Button>
+              {!isSignedIn && (
+                <Disclosure.Button
+                  as="a"
+                  href="/sign-in"
+                  className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-yellow-500 underline hover:border-gray-300 hover:bg-gray-50 hover:text-yellow-700"
+                >
+                  Sign in
+                </Disclosure.Button>
+              )}
+              <UserButton
+                appearance={{
+                  elements: {
+                    rootBox: "pl-3 pt-2",
+                  },
+                }}
+              />
             </div>
           </Disclosure.Panel>
         </>
