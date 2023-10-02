@@ -1,6 +1,5 @@
 import { useUser } from "@clerk/nextjs";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import JobCard from "~/components/JobCard";
 import Navbar from "~/components/Navbar";
 import { generateSSGHelper } from "~/server/helpers/serverHelper";
@@ -17,7 +16,13 @@ export default function Home(
 ) {
   const { jobId } = props;
   const { isSignedIn } = useUser();
-  const { data: job } = api.job.getJobDetails.useQuery({ jobId });
+  const { data: job } = api.job.getJobDetails.useQuery(
+    { jobId },
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    },
+  );
   if (!job) return null;
   return (
     <>
