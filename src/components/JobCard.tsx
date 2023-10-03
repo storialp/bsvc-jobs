@@ -69,8 +69,14 @@ export default function JobCard({ jobId, job }: JobCardProps) {
           )}
           <div className="flex justify-between gap-x-4 py-3">
             <dt className="flex items-center text-gray-600 underline hover:text-gray-500">
-              <a href={job.link}>View in their website</a>
-              <a href={job.link} className="content-center text-center">
+              <a href={job.link} target="_blank">
+                View in their website
+              </a>
+              <a
+                href={job.link}
+                target="_blank"
+                className="content-center text-center"
+              >
                 <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
               </a>
             </dt>

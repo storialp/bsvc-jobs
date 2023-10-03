@@ -66,8 +66,14 @@ export default function SavedJobList() {
             </div>
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="flex items-center text-gray-600 underline hover:text-gray-500">
-                <a href={job.job.link}>View in their website</a>
-                <a href={job.job.link} className="content-center text-center">
+                <a href={job.job.link} target="_blank">
+                  View in their website
+                </a>
+                <a
+                  href={job.job.link}
+                  className="content-center text-center"
+                  target="_blank"
+                >
                   <ArrowUpRightIcon className="h-4 w-4" aria-hidden="true" />
                 </a>
               </dt>
