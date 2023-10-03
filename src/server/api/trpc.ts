@@ -11,9 +11,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { prisma } from "~/server/db";
-import type { AppRouter } from "./root";
 
 /**
  * 1. CONTEXT

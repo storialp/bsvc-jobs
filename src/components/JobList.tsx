@@ -1,6 +1,5 @@
-import { useUser } from "@clerk/nextjs";
-import { BookmarkIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
-import { RouterOutputs, api } from "~/utils/api";
+import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
+import type { RouterOutputs } from "~/utils/api";
 import Link from "next/link";
 import SaveJob from "./SaveJob";
 

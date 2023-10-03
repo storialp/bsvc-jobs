@@ -3,7 +3,7 @@ import Head from "next/head";
 import JobCard from "~/components/JobCard";
 import Navbar from "~/components/Navbar";
 import { generateSSGHelper } from "~/server/helpers/serverHelper";
-import {
+import type {
   GetStaticPaths,
   GetStaticPropsContext,
   InferGetStaticPropsType,
