@@ -3,14 +3,9 @@ import Head from "next/head";
 import JobList from "~/components/JobList";
 import Navbar from "~/components/Navbar";
 import { generateSSGHelper } from "~/server/helpers/serverHelper";
-import { InferGetStaticPropsType } from "next";
-import { RouterOutputs, api } from "~/utils/api";
+import { api } from "~/utils/api";
 
-type AllJobOutput = RouterOutputs["job"]["getAll"];
-
-export default function Home(
-  props: InferGetStaticPropsType<typeof getStaticProps>,
-) {
+export default function Home() {
   const { isSignedIn } = useUser();
   const { data: jobData } = api.job.getAll.useQuery(undefined, {
     refetchOnMount: false,
