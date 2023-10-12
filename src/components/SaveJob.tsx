@@ -18,7 +18,6 @@ export default function SaveJob({ jobId }: SaveJobProps) {
       console.error(e);
     },
   });
-
   return (
     <>
       {isSignedIn ? (
@@ -30,12 +29,12 @@ export default function SaveJob({ jobId }: SaveJobProps) {
         >
           {savedIds?.find((saved) => saved.jobId === jobId) ? (
             <BookmarkIcon
-              className="h-5 w-5 text-gray-700 hover:text-gray-500"
+              className="h-5 w-5 text-gray-800 hover:text-gray-500"
               aria-hidden="true"
             />
           ) : (
             <BookmarkIcon
-              className="h-5 w-5 text-gray-400 hover:text-gray-500"
+              className="h-5 w-5 text-gray-400 hover:text-gray-600"
               aria-hidden="true"
             />
           )}
@@ -43,7 +42,7 @@ export default function SaveJob({ jobId }: SaveJobProps) {
       ) : (
         <button onClick={(e) => e.preventDefault()}>
           <BookmarkIcon
-            className="h-5 w-5 text-gray-400 hover:text-gray-500"
+            className="h-5 w-5 text-gray-400 hover:text-gray-600"
             aria-hidden="true"
           />
         </button>

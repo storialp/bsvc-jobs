@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
-
+import { Toaster, toast } from "sonner";
 interface RequestIntroProps {
   jobId: string;
 }
@@ -19,14 +19,17 @@ export default function RequestIntro({ jobId }: RequestIntroProps) {
   const { mutate: mutation } = api.introduction.createIntro.useMutation({
     onSuccess: () => {
       void ctx.introduction.checkIntroductionExists.invalidate();
-      void setSuccessOpen(true);
+      // void setSuccessOpen(true);
+      void notification();
     },
     onError: (e) => {
       console.error(e);
     },
   });
+  const notification = () => toast.success("Intro requested");
   return (
     <>
+      <Toaster position="top-right" richColors />
       <div className="py-3 text-center">
         {!isSignedIn ? (
           <button
