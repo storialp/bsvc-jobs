@@ -1,4 +1,5 @@
 import { BookmarkIcon, ArrowUpRightIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 import { api } from "~/utils/api";
 
 // TODO: abstract later so you can reuse the JobList component. Serialization maybe?
@@ -25,44 +26,54 @@ export default function SavedJobList() {
           key={job.job.id}
           className="overflow-hidden rounded-xl border border-gray-200"
         >
-          <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
-            <div className="flex-col text-sm font-medium leading-6 text-gray-900">
-              <img
-                src={job.job.imageUrl}
-                alt={`${job.job.companyName} logo`}
-                className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
-              />
-              {job.job.companyName}
-            </div>
-            <div className="text-md mx-auto font-medium leading-6 text-gray-900">
-              {job.job.title}
-              <p className=" text-sm text-gray-600">{job.job.function}</p>
-            </div>
-            <div className="relative ml-auto">
-              <button
-                onClick={() => {
-                  mutate({ jobId: job.job.id });
-                }}
-              >
-                <BookmarkIcon
-                  className="h-5 w-5 text-gray-700 hover:text-gray-500"
-                  aria-hidden="true"
+          <Link href={`/job/${job.job.id}`}>
+            <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+              <div className="flex-col text-sm font-medium leading-6 text-gray-900">
+                <img
+                  src={job.job.imageUrl}
+                  alt={`${job.job.companyName} logo`}
+                  className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
                 />
-              </button>
+                {job.job.companyName}
+              </div>
+              <div className="text-md mx-auto font-medium leading-6 text-gray-900">
+                {job.job.title}
+                <p className=" text-sm text-gray-600">{job.job.function}</p>
+              </div>
+              <div className="relative ml-auto">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    mutate({ jobId: job.job.id });
+                  }}
+                >
+                  <BookmarkIcon
+                    className="h-5 w-5 text-gray-700 hover:text-gray-500"
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
             </div>
-          </div>
+          </Link>
+
           <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-            <div className="flex justify-between gap-x-4 py-3">
-              <dt className="text-gray-600">Location</dt>
-              <dd className="text-gray-700">{`${job.job.city}, ${job.job.country}`}</dd>
-            </div>
-            <div className="flex justify-between gap-x-4 py-3">
-              <dt className="text-gray-600">Schedule</dt>
-              <dd className="flex items-start gap-x-2">
-                <div className="font-medium text-gray-900">
-                  {job.job.schedule}
+            <Link href={`/job/${job.job.id}`}>
+              <div className="flex justify-between gap-x-4 py-3">
+                <dt className="text-gray-600">Location</dt>
+                <dd className="text-gray-700">{`${job.job.city}, ${job.job.country}`}</dd>
+              </div>
+            </Link>
+            <div>
+              <Link href={`/job/${job.job.id}`}>
+                <div className="flex justify-between gap-x-4 py-3">
+                  <dt className="text-gray-600">Schedule</dt>
+                  <dd className="flex items-start gap-x-2">
+                    <div className="font-medium text-gray-900">
+                      {job.job.schedule}
+                    </div>
+                  </dd>
                 </div>
-              </dd>
+              </Link>
             </div>
             <div className="flex justify-between gap-x-4 py-3">
               <dt className="flex items-center text-gray-600 underline hover:text-gray-500">
