@@ -31,7 +31,7 @@ model Job {
 model Description {
     id String @id @default(cuid())
     content String @db.VarChar(250)
-    job Job @relation(fields: [jobId], references: [id])
+    job Job @relation(fields: [jobId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     jobId String
     @@index([jobId])
 }
@@ -39,14 +39,14 @@ model Description {
 model Qualification {
     id String @id @default(cuid())
     content String @db.VarChar(250)
-    job Job @relation(fields: [jobId], references: [id])
+    job Job @relation(fields: [jobId], references: [id], onDelete: Cascade, onUpdate: Cascade)
     jobId String
     @@index([jobId])
 }
 
 model SavedJob {
   @@id([userId, jobId])
-  job Job @relation(fields: [jobId], references: [id])
+  job Job @relation(fields: [jobId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   jobId String
   userId String @db.VarChar(200)
   @@index([jobId])
@@ -55,7 +55,7 @@ model SavedJob {
 
 model Introduction {
   @@id([userId, jobId])
-  job Job @relation(fields: [jobId], references: [id])
+  job Job @relation(fields: [jobId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   jobId String
   userId String @db.VarChar(200)
   active Boolean @default(true)
