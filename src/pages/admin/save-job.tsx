@@ -35,7 +35,7 @@ export default function Home() {
   const handleQualificationChange = (i: number, e: string) => {
     const data = [...qualification];
     data[i] = e;
-    setDescription(data);
+    setQualification(data);
   };
 
   const addDescription = () => {

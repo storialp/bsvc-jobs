@@ -1,7 +1,7 @@
 import { api } from "~/utils/api";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { Toaster, toast } from "sonner";
